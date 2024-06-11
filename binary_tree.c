@@ -41,7 +41,7 @@ struct node* tree_builder(int inp_arr[], int size){
             q_arr[rear]->left = left_n;
             front+= 1;
             q_arr[front] = left_n;
-            printf("%p  %d\n", left_n, inp_arr[elem]);
+            // printf("%p  %d\n", left_n, inp_arr[elem]);
         }
         else if (q_arr[rear]->right == NULL){
             struct node* right_n;
@@ -53,18 +53,18 @@ struct node* tree_builder(int inp_arr[], int size){
             q_arr[rear]->right = right_n;
             front+=1;
             q_arr[front] = right_n;
-            printf("%p  %d \n", right_n, inp_arr[elem]);
+            // printf("%p  %d \n", right_n, inp_arr[elem]);
             rear+=1;
         }
  
         
     }
-    for (int i=0; i<=8; i++){
-        printf("%p \n", q_arr[i]);
-        printf("%d  %d \n", sizeof(q_arr[i]), sizeof(&q_arr[i]));
-        // printf("\n");
+    for (int i=0; i<size; i++){
+        printf("%p ", q_arr[i]);
+        // printf("%d  %d \n", sizeof(q_arr[i]), sizeof(&q_arr[i]));
+        // // printf("\n");
 
-        printf("%d", q_arr[i]->value);
+        printf("%d \n", q_arr[i]->value);
     }
   
     return root;
@@ -92,6 +92,8 @@ void tree_printer_bfs(struct node* root){
 
         rear+=1;
     }
+    printf("%d %p %p", q_arr[rear]->value, q_arr[rear]->left, q_arr[rear]->right);
+    printf("%d \n", rear);
 }
 
 void tree_printer_dfs(struct node* new_root, int order){
@@ -128,6 +130,36 @@ void tree_printer_dfs(struct node* new_root, int order){
 }
 
 
+int add_node(struct node* root, struct node* new_node){
+    // struct node* q_arr[30];
+    // int rear = 0;
+    // int front = 0;
+
+    struct node* temp =root;
+    // temp = malloc(sizeof(struct node));
+    // temp = root;
+    printf("%p %p %p \n", temp->right, temp, temp->left);
+    while (temp->right != NULL){
+        temp = temp->right;
+        printf("%p %p %p \n", temp->right, temp, temp->left);
+    }
+    printf("%p %p %p \n", temp->right, temp, temp->left);
+
+    if (temp->left == NULL){
+        temp->left = new_node;
+        
+    }
+    else if(temp->right == NULL){
+        temp->right = new_node;
+    }
+    printf("%p %p %p \n", temp->right, temp, temp->left);
+    int order = 1;
+    // tree_printer_dfs(root, order);
+
+    return 1;
+
+}
+
 
 
 
@@ -142,7 +174,30 @@ int main() {
 
     printf("\n\n");
     // tree_printer_bfs(new_root);
-    int order = 1;
+    int order = 0;
+    // tree_printer_dfs(new_root, order);
+    struct node* new_node;
+    new_node = malloc(sizeof(struct node));
+    new_node->value = 16;
+    new_node->left = NULL;
+    new_node->right = NULL; 
+    // {
+    //     /* data */
+    // };
+    struct node* new_node2;
+    new_node2 = malloc(sizeof(struct node));
+    new_node2->value = 17;
+    new_node2->left = NULL;
+    new_node2->right = NULL; 
+    add_node(new_root, new_node);
+    add_node(new_root, new_node2);
+
+    tree_printer_bfs(new_root);
     tree_printer_dfs(new_root, order);
+
     return 0;
 }
+
+
+
+
