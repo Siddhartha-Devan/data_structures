@@ -65,9 +65,12 @@ struct node* tree_builder(int inp_arr[], int size){
         // // printf("\n");
 
         printf("%d \n", q_arr[i]->value);
+
+
     }
   
     return root;
+
 }
 
 void tree_printer_bfs(struct node* root){
@@ -92,7 +95,7 @@ void tree_printer_bfs(struct node* root){
 
         rear+=1;
     }
-    printf("%d %p %p", q_arr[rear]->value, q_arr[rear]->left, q_arr[rear]->right);
+    printf("%d %p %p \n", q_arr[rear]->value, q_arr[rear]->left, q_arr[rear]->right);
     printf("%d \n", rear);
 }
 
@@ -147,7 +150,6 @@ int add_node(struct node* root, struct node* new_node){
 
     if (temp->left == NULL){
         temp->left = new_node;
-        
     }
     else if(temp->right == NULL){
         temp->right = new_node;
@@ -159,8 +161,6 @@ int add_node(struct node* root, struct node* new_node){
     return 1;
 
 }
-
-
 
 
 
@@ -181,14 +181,13 @@ int main() {
     new_node->value = 16;
     new_node->left = NULL;
     new_node->right = NULL; 
-    // {
-    //     /* data */
-    // };
+
     struct node* new_node2;
     new_node2 = malloc(sizeof(struct node));
     new_node2->value = 17;
     new_node2->left = NULL;
     new_node2->right = NULL; 
+
     add_node(new_root, new_node);
     add_node(new_root, new_node2);
 
@@ -197,7 +196,3 @@ int main() {
 
     return 0;
 }
-
-
-
-
