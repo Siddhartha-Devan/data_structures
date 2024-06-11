@@ -8,8 +8,9 @@ struct node {
     struct node *right;
 };
 
-struct node* tree_builder(int inp_arr[]){
-    struct node* q_arr[10];
+struct node* tree_builder(int inp_arr[], int size){
+
+    struct node* q_arr[size];
     printf("%d %d\n", sizeof(q_arr), sizeof(q_arr[0]));
     
     int elem = 0;
@@ -27,7 +28,7 @@ struct node* tree_builder(int inp_arr[]){
     int rear = 0;
     int front = 0;
     // printf("%p \n",&root);
-    while (elem<=8){
+    while (elem<size){
         // printf("%p \n",&root);
         if (q_arr[rear]->left == NULL){
             struct node* left_n;
@@ -65,14 +66,13 @@ struct node* tree_builder(int inp_arr[]){
 
         printf("%d", q_arr[i]->value);
     }
-
-    
+  
     return root;
 }
 
 void tree_printer_bfs(struct node* root){
     // struct node q_arr = []
-    struct node* q_arr[10];
+    struct node* q_arr[50];
     printf("%d %d\n", sizeof(q_arr), sizeof(q_arr[0]));
     int rear = 0;
     int front = 1; 
@@ -80,9 +80,8 @@ void tree_printer_bfs(struct node* root){
 
     printf("%d \n", root->value);
 
-    while((q_arr[rear]->left!=NULL) && (q_arr[rear]->right!=NULL)){
+    while((q_arr[rear]->left!=NULL) || (q_arr[rear]->right!=NULL)){
         // printf("%d \n", q_arr[rear]->value);
-
         q_arr[front] = q_arr[rear]->left;
         front+=1;
         printf("%d \n", q_arr[rear]->left->value);
@@ -93,35 +92,57 @@ void tree_printer_bfs(struct node* root){
 
         rear+=1;
     }
-
 }
 
-int main() {
-    int inp_arr[] = {1,2,3,4,5,6,7,8,9};
-    // int elem = 0;
-    // struct node root;
-    // root.value = inp_arr[elem];
-    // printf("%p \n",&root);
-    // elem+=1;
-    
-    // struct node l1;
-    // l1.value = inp_arr[elem];
-    // elem+=1;
-    // root.left = &l1;
-    
-    // struct node r1;
-    // r1.value = inp_arr[elem];
-    // elem+=1;
-    // root.right = &r1;
-    
+void tree_printer_dfs(struct node* new_root, int order){
+    if (order == 0){
+        if (new_root == NULL){
+            return;
+        }
+        else{
+            printf("%d\n ", new_root->value);
+            tree_printer_dfs(new_root->left, order);
+            tree_printer_dfs(new_root->right, order);
+        }
+    }
+    else if (order == 1){
+        if (new_root == NULL){
+            return;
+        }
+        else{
+            tree_printer_dfs(new_root->left, order);
+            printf("%d\n ", new_root->value);
+            tree_printer_dfs(new_root->right, order);
+        }
+    }
+    else{
+        if (new_root == NULL){
+            return;
+        }
+        else{
+            tree_printer_dfs(new_root->left, order);
+            tree_printer_dfs(new_root->right, order);
+            printf("%d\n ", new_root->value);
+        }
+    }
+}
 
-    
-    // printf("%d \n %p,\n %p %p \n %d %d \n %p %p", root.value, &root, root.left, &l1, (root.left)->value, l1.value, root.right, &r1);
-    struct node* new_root = tree_builder(inp_arr);
+
+
+
+
+
+
+
+int main() {
+    int inp_arr[] = {1,2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15};
+    printf("%d %d \n", sizeof(inp_arr), sizeof(inp_arr[2]));
+    int len = sizeof(inp_arr) / sizeof(inp_arr[2]);
+    struct node* new_root = tree_builder(inp_arr, len);
 
     printf("\n\n");
-    tree_printer_bfs(new_root);
-    
- 
+    // tree_printer_bfs(new_root);
+    int order = 1;
+    tree_printer_dfs(new_root, order);
     return 0;
 }
